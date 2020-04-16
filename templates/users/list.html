@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+		<table id="tb">
+			<tr>
+				<td>username</td>
+				<td>email</td>
+				<td>role</td>
+				<td>operation</td>
+			</tr>
+		</table>
+	</body>
+	<script>
+		$(function(){
+			$.ajax({
+				url:'http://127.0.0.1:5000/findAll',
+				method:'GET',
+				dataType:'json',
+				success:function(users){
+					console.log(users);
+					for (var i=0;i<users.length;i++){
+						var s = '';
+                    	s += '<tr>'+
+                    			'<td>' + users[i]['username'] + '</td>' +
+                    			'<td>' + users[i]['email']    + '</td>' +
+                    			'<td>' + users[i]['role']     + '</td>' +
+                    			'<td>' +
+                    				' <a href=' + '#' + '>修改</a>/<a href=' + '#' + '>删除</a></td>' +
+                    		'</tr>';
+                    	$("#tb").append(s);
+					}
+				},
+				error:function(){
+					alert('失败');
+				}
+			});
+		});
+	</script>
+</html>

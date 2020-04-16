@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <div id="menu">
+	    <a v-if="manager" href="/users/list">用户管理</a>
+        <a v-if="mine" href="#">我的信息</a>
+        <a v-if="product" href="#">商品状态</a>
+    </div>
+</body>
+<script>
+
+</script>
+<script>
+    $(function(){
+			$.ajax({
+				url:'http://127.0.0.1:5000/addUser',
+				dataType:'json',
+				method:'GET',
+				success:function(user){
+				    console.log(user);
+				    if (user.role==0){
+				        new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : true,
+                                mine : false,
+                                product: true
+                            }
+                        });
+				    }else{
+				    	new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : false,
+                                mine : true,
+                                product: true
+                            }
+                        });
+				    }
+				},
+				error:function(){
+					alert('失败');
+				}
+			});
+		});
+</script>
+</html>
