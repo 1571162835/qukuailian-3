@@ -2,6 +2,10 @@ from .extension import db
 
 
 class User(db.Model):
+    """
+    role:
+        0-超级管理员，1-生产商，2-承运商，3-经销商
+    """
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -23,6 +27,10 @@ class User(db.Model):
 
 
 class Product(db.Model):
+    """
+    status:
+        1-待运输，2-运输中，3-已到达
+    """
     __tablename__ = 'products'
 
     id = db.Column(db.Integer, primary_key=True)
