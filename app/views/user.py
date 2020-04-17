@@ -6,10 +6,6 @@ from ..models import User
 user_page = Blueprint('user_page', __name__)
 
 
-@user_page.route('/users/userlist')
-def userlist():
-    return render_template('users/userlist.html')
-
 @user_page.route('/users/addlist')
 def addlist():
     return render_template('/users/adduser.html')
@@ -18,19 +14,20 @@ def addlist():
 @user_page.route('/thisuser')
 def thisuser():
     user = User.query.filter_by(id=session.get('user_id')).first()
-    js = json.dumps(user,default=user2dict)
+    js = json.dumps(user, default=user2dict)
     return js
 
 
 @user_page.route('/adduser', methods=['GET', 'POST'])
 def adduser():
+    print('调用addUser')
     username = request.form.get('username')
     password = request.form.get('password')
     role = request.form.get('role')
     realname = '默认昵称'
     db.session.add(User(username,password,role,realname))
     db.session.commit()
-    return render_template('/users/userlist.html')
+    return redirect(url_for('user_page.findAll'))
 
 
 @user_page.route('/')
@@ -52,15 +49,16 @@ def login():
             return render_template('users/login.html')
 
 
-@user_page.route('/findAll')
+@user_page.route('/findAll', methods=['POST', 'GET'])
 def findAll():
     print('调用findAll')
     users = User.query.all()
-    print(users)
-    users = [user2dict(user) for user in users]
-    js = json.dumps(users)
-    print(js)
-    return js
+    return render_template('users/userlist.html', users=users)
+    # print(users)
+    # users = [user2dict(user) for user in users]
+    # js = json.dumps(users)
+    # print(js)
+    # return js
 
 
 @user_page.route('/deleteUser')
@@ -69,7 +67,7 @@ def deleteUser():
     print(username)
     db.session.delete(User.query.filter_by(username=username).first())
     db.session.commit()
-    return render_template('/users/userlist.html')
+    return redirect(url_for('user_page.findAll'))
 
 
 

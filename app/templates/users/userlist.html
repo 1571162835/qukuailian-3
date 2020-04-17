@@ -10,37 +10,19 @@
 		<h2>用户列表</h2>
 		<table id="tb">
 			<tr>
-				<td>username</td>
-				<td>email</td>
-				<td>role</td>
-				<td>operation</td>
+				<th>username</th>
+				<th>email</th>
+				<th>role</th>
+				<th>operation</th>
 			</tr>
+			{%for user in users%}
+			<tr>
+				<td>{{user.username}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.role}}</td>
+				<td><a href="#">修改</a>/<a href="/deleteUser?username={{user.username}}" onclick="return confirm('确认删除？')">删除</a></td>
+			</tr>
+			{% endfor %}
 		</table>
 	</body>
-	<script>
-		$(function(){
-			$.ajax({
-				url:'http://127.0.0.1:5000/findAll',
-				method:'GET',
-				dataType:'json',
-				success:function(users){
-					console.log(users);
-					for (var i=0;i<users.length;i++){
-						var s = '';
-                    	s += '<tr>'+
-                    			'<td>' + users[i]['username'] + '</td>' +
-                    			'<td>' + users[i]['password']    + '</td>' +
-                    			'<td>' + users[i]['role']     + '</td>' +
-                    			'<td>' +
-                    				' <a href="#"' + '>修改</a>/<a href=' + '/deleteUser?username='+ users[i]['username'] + '>删除</a></td>' +
-                    		'</tr>';
-                    	$("#tb").append(s);
-					}
-				},
-				error:function(){
-					alert('失败');
-				}
-			});
-		});
-	</script>
 </html>
