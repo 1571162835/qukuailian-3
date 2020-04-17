@@ -10,6 +10,21 @@
         品名：<input type="text" name="name" id="name" value="{{ product.name }}"><br>
         数量：<input type="number" name="number" id="number" value="{{ product.number }}"><br>
         终点：<input type="text" name="dest" id="dest" value="{{ product.dest }}"><br>
+        状态：<select id="status">
+                  {% if 1 == product.status %}
+                      <option value ="1" selected="selected">待运输</option>
+                      <option value ="2">运输中</option>
+                      <option value="3">已到达</option>
+                  {% elif 2 == product.status %}
+                      <option value ="1">待运输</option>
+                      <option value ="2" selected="selected">运输中</option>
+                      <option value="3">已到达</option>
+                  {% else: %}
+                      <option value ="1">待运输</option>
+                      <option value ="2">运输中</option>
+                      <option value="3" selected="selected">已到达</option>
+                  {% endif %}
+              </select><br>
         描述：<textarea rows="3" name="desc" id="desc" value="{{ product.desc }}"></textarea><br>
         <input type="button" value="确认" id="submit">
     </form>
@@ -24,6 +39,7 @@
                     'name': $("#name").val(),
                     'number': $("#number").val(),
                     'dest': $("#dest").val(),
+                    'status': $("#status").val(),
                     'desc': $("#desc").val()
                 },
                 success: function(response){

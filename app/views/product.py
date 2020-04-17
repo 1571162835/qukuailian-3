@@ -48,9 +48,10 @@ def product_modify(product_id):
         name = request.form.get('name')
         number = request.form.get('number')
         dest = request.form.get('dest')
+        status = request.form.get('status')
         desc = request.form.get('desc')
         if name and number and dest:
-            product.name, product.number, product.dest, product.desc = name, number, dest, desc
+            product.name, product.number, product.dest, product.status, product.desc = name, int(number), dest, int(status), desc
             db.session.commit()
             return '1'
         else:

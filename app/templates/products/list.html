@@ -26,7 +26,13 @@
             <td>{{ product.name }}</td>
             <td>{{ product.number }}</td>
             <td>{{ product.dest }}</td>
-            <td>{{ product.status }}</td>
+            {% if 1 == product.status %}
+                <td>待运输</td>
+            {% elif 2 == product.status %}
+                <td>运输中</td>
+            {% else: %}
+                <td>已到达</td>
+            {% endif %}
             <td>{{ product.desc }}</td>
             <td>
                 <a href="/products/modify/{{ product.id }}">修改</a>
