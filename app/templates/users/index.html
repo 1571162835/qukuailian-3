@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="menu">
-	    <a v-if="manager" href="/users/list">用户管理</a>
+	    <a v-if="manager" href="/users/userlist">用户管理</a>
         <a v-if="mine" href="#">我的信息</a>
         <a v-if="product" href="#">商品状态</a>
     </div>
@@ -19,7 +19,7 @@
 <script>
     $(function(){
 			$.ajax({
-				url:'http://127.0.0.1:5000/addUser',
+				url:'http://127.0.0.1:5000/thisuser',
 				dataType:'json',
 				method:'GET',
 				success:function(user){

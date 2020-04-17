@@ -1,27 +1,40 @@
 from flask import Blueprint, render_template, session, redirect, request, url_for, flash
 import json
+from app.extension import db
 from ..models import User
 
 user_page = Blueprint('user_page', __name__)
 
 
-@user_page.route('/users/list')
-def list():
-    return render_template('users/list.html')
+@user_page.route('/users/userlist')
+def userlist():
+    return render_template('users/userlist.html')
 
-@user_page.route('/addUser')
-def addUser():
-    if session.get('user_id'):
-        uid = session.get('user_id')
-        user = User.query.filter(User.id == uid).first()
-        print('addUser已经执行')
-        return json.dumps(user, default=user2dict)
-    else:
-        return redirect('/')
+@user_page.route('/users/addlist')
+def addlist():
+    return render_template('/users/adduser.html')
+
+
+@user_page.route('/thisuser')
+def thisuser():
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    js = json.dumps(user,default=user2dict)
+    return js
+
+
+@user_page.route('/adduser', methods=['GET', 'POST'])
+def adduser():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    role = request.form.get('role')
+    realname = '默认昵称'
+    db.session.add(User(username,password,role,realname))
+    db.session.commit()
+    return render_template('/users/userlist.html')
 
 
 @user_page.route('/')
-@user_page.route('/login', methods=['GET', 'PoSt'])
+@user_page.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('users/login.html')
@@ -48,6 +61,17 @@ def findAll():
     js = json.dumps(users)
     print(js)
     return js
+
+
+@user_page.route('/deleteUser')
+def deleteUser():
+    username = request.args.get('username')
+    print(username)
+    db.session.delete(User.query.filter_by(username=username).first())
+    db.session.commit()
+    return render_template('/users/userlist.html')
+
+
 
 
 def user2dict(User):

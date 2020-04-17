@@ -32,7 +32,7 @@ class Product(db.Model):
     status:
         1-待运输，2-运输中，3-已到达
     """
-    __tablename__ = 'products'
+    __tablename__ = 'product'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
