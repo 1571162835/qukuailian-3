@@ -11,6 +11,11 @@ def addlist():
     return render_template('/users/adduser.html')
 
 
+@user_page.route('/users/index')
+def userlist():
+    return render_template('/users/index.html')
+
+
 @user_page.route('/thisuser')
 def thisuser():
     user = User.query.filter_by(id=session.get('user_id')).first()
@@ -52,7 +57,7 @@ def login():
 @user_page.route('/findAll', methods=['POST', 'GET'])
 def findAll():
     print('调用findAll')
-    users = User.query.all()
+    users = User.query.filter(User.role != 0)
     return render_template('users/userlist.html', users=users)
     # print(users)
     # users = [user2dict(user) for user in users]
@@ -69,6 +74,24 @@ def deleteUser():
     db.session.commit()
     return redirect(url_for('user_page.findAll'))
 
+
+@user_page.route("/medituser/<id>", methods=['POST', 'GET'])
+def medituser(id):
+    user = User.query.get(id)
+    if request.method == 'GET':
+        return render_template('/users/medituser.html', user=user)
+    else:
+        username = request.form.get("username")
+        role = request.form.get("role")
+        user.username = username
+        user.role = role
+        db.session.commit()
+        return redirect(url_for('user_page.findAll'))
+
+
+@user_page.route("/logout", methods=['POST', 'GET'])
+def logout():
+    return render_template('users/login.html')
 
 
 
