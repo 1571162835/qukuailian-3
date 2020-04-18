@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<table border="1" id="tb">
+    <tr>
+        <th>编号</th>
+        <th>品名</th>
+        <th>数量</th>
+        <th>终点</th>
+        <th>状态</th>
+        <th>描述</th>
+        <th>
+            <form action="/products/add" method="get">
+                <input type="submit" value="新增">
+            </form>
+        </th>
+    </tr>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.number }}</td>
+            <td>{{ product.dest }}</td>
+            {% if 1 == product.status %}
+                <td>待运输</td>
+            {% elif 2 == product.status %}
+                <td>运输中</td>
+            {% else: %}
+                <td>已到达</td>
+            {% endif %}
+            <td>{{ product.desc }}</td>
+            <td>
+                <a href="/products/modify/{{ product.id }}">修改</a>/<a href="/products/delete/{{ product.id }}">删除</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

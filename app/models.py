@@ -44,7 +44,7 @@ class Product(db.Model):
     def __init__(self, name, number, dest, status, desc=None):
         self.name = name
         self.number = number
-        self.desc = dest
+        self.dest = dest
         self.status = status
         self.desc = desc
 
