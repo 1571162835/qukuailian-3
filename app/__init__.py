@@ -4,7 +4,7 @@ from app.extension import db
 import os
 
 app = Flask('app')
-app.config['SQLALCHEMY_DATABASE_URI'] = '数据库uri'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'database uri'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "lalskskskskksksjsj"
 
