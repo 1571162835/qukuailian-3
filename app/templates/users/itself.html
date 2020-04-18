@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<table border="1" id="tb">
+    <tr>
+        <th>编号</th>
+        <th>用户名</th>
+        <th>身份标签</th>
+        <th>电话</th>
+        <th>真实姓名</th>
+        <th>电子邮件</th>
+    </tr>
+        <tr>
+            <td>{{ itself.id }}</td>
+            <td>{{ itself.username }}</td>
+            {% if 0 == itself.role %}
+                <td>管理员</td>
+            {% elif 1 == itself.role %}
+                <td>生产商</td>
+            {% elif 2 == itself.role %}
+                <td>承运商</td>
+            {% else %}
+                <td>经销商</td>
+            {% endif %}
+            <td>{{ itself.tel }}</td>
+            <td>{{ itself.real_name }}</td>
+            <td>{{ itself.email }}</td>
+            <td>
+                <a href="/user/modify/{{ itself.id }}">修改</a>
+            </td>
+        </tr>
+</table>
+</body>
+</html>

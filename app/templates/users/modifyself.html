@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改个人信息</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <form>
+        密码：<input type="password" name="password" id="password" value="{{ itself.password }}"><br>
+        电话：<input type="text" name="tel" id="tel" value="{{ itself.tel }}"><br>
+        真实姓名：<input type="text" name="real_name" id="real_name" value="{{ itself.real_name }}"><br>
+        电子邮件：<input type="text" name="email" id="email" value="{{ itself.email }}"><br>
+        <input type="button" value="确认" id="submit">
+    </form>
+    <a href="/user/itself">返回个人信息</a>
+<script>
+    $(function(){
+        $("#submit").click(function(){
+            $.ajax({
+                url: "#",
+                method: "POST",
+                data: {
+                    'password': $("#password").val(),
+                    'tel': $("#tel").val(),
+                    'real_name': $("#real_name").val(),
+                    'email': $("#email").val()
+                },
+                success: function(response){
+                    if('0' == response){
+                        alert('修改失败！！！');
+                    }
+                    if('1' == response){
+                        alert('修改成功！！！');
+                        window.location.href="/user/itself";
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

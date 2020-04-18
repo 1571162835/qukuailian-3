@@ -9,8 +9,8 @@
 <body>
     <div id="menu">
 	    <a v-if="manager" href="/findAll">用户管理</a>
-        <a v-if="mine" href="#">我的信息</a>
-        <a v-if="product" href="#">商品状态</a>
+        <a v-if="mine" href="/user/itself">我的信息</a>
+        <a v-if="product" href="/products/list">商品列表</a>
     </div>
 </body>
 <script>
