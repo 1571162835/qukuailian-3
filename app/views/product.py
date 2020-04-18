@@ -10,13 +10,13 @@ product_page = Blueprint('product_page', __name__)
 @product_page.route('/products/list')
 def product_list():
     products = Product.query.all()
-    return render_template('products/list.html', products=products)
+    return render_template('products/product-list.html', products=products)
 
 
 @product_page.route('/products/add', methods=['GET', 'POST'])
 def product_add():
     if request.method == 'GET':
-        return render_template('products/addproduct.html')
+        return render_template('products/product-add.html')
     else:
         name = request.form.get('name')
         number = request.form.get('number')
@@ -43,7 +43,7 @@ def product_delete(product_id):
 def product_modify(product_id):
     product = Product.query.get(product_id)
     if request.method == 'GET':
-        return render_template('products/modifyproduct.html', product=product)
+        return render_template('products/product-modify.html', product=product)
     else:
         name = request.form.get('name')
         number = request.form.get('number')

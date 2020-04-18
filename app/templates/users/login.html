@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-	</head>
-	<body>
-		{% for message in get_flashed_messages() %}
-		{{ message }}
-		{% endfor %}
-		<form action="/login" method="post">
-			用户名：<input id="username" name="username" type="text" /><br />
-			密码：<input id="password" name="password" type="password" /><br />
-			<button id="submit" name="submit" >提交</button>
-		</form>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>欢迎登录</title>
+    <link  rel = "stylesheet" href = "../../static/css/flogin.css"  />
+</head>
+<body style = "background:#353f42">
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
+<div class="main">
+    <div class="title">
+        <span>用户登录</span>
+    </div>
+    <div class="title-msg">
+        <span>请输入登录账户和密码</span>
+    </div>
+    <form class="login-form" method="post" novalidate  action = "/login">
+        <!--输入框-->
+        <div class="input-content">
+            <!--autoFocus-->
+            <div>
+                <input type="text"
+                       placeholder="用户名/手机号/邮箱" name="username" id="username" required = "required" autocomplete="off"/>
+            </div>
+            <div style="margin-top: 16px">
+                <input type="password"
+                       a placeholder="登录密码" name="password" id="password" required = "required" utocomplete="off" maxlength="32"/>
+            </div>
+        </div>
+        <!--登入按钮-->
+        <div style="text-align: center">
+            <button type="submit" class="enter-btn" >登录</button>
+        </div>
+        <div class="foor">
+            <div class="right"><a href = "register.jsp">用户注册</a></div>
+        </div>
+    </form>
+
+</div>
+<script src="assets/js/jquery-1.8.2.min.js"></script>
+<script src="assets/js/supersized.3.2.7.min.js"></script>
+<script src="assets/js/supersized-init.js"></script>
+<script src="assets/js/scripts.js"></script>
+</body>
+
 </html>

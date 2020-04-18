@@ -8,12 +8,12 @@ user_page = Blueprint('user_page', __name__)
 
 @user_page.route('/users/addlist')
 def addlist():
-    return render_template('/users/adduser.html')
+    return render_template('/users/user-add.html')
 
 
 @user_page.route('/users/index')
 def userlist():
-    return render_template('/users/index.html')
+    return render_template('/users/main.html')
 
 
 @user_page.route('/thisuser')
@@ -29,7 +29,7 @@ def adduser():
     username = request.form.get('username')
     password = request.form.get('password')
     role = request.form.get('role')
-    realname = '默认昵称'
+    realname = request.form.get('real_name')
     db.session.add(User(username,password,role,realname))
     db.session.commit()
     return redirect(url_for('user_page.findAll'))
@@ -48,7 +48,7 @@ def login():
 
         if user and user.password == pwd:
             session['user_id'] = user.id
-            return render_template('users/index.html')
+            return render_template('users/main.html')
         else:
             flash('登陆失败')
             return render_template('users/login.html')
@@ -58,7 +58,7 @@ def login():
 def findAll():
     print('调用findAll')
     users = User.query.filter(User.role != 0)
-    return render_template('users/userlist.html', users=users)
+    return render_template('users/user-list.html', users=users)
     # print(users)
     # users = [user2dict(user) for user in users]
     # js = json.dumps(users)
@@ -79,7 +79,7 @@ def deleteUser():
 def medituser(id):
     user = User.query.get(id)
     if request.method == 'GET':
-        return render_template('/users/medituser.html', user=user)
+        return render_template('/users/user-modify.html', user=user)
     else:
         username = request.form.get("username")
         role = request.form.get("role")
