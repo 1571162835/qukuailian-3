@@ -33,7 +33,7 @@ def product_add():
 
 @product_page.route('/products/delete/<int:product_id>')
 def product_delete(product_id):
-    product = Product.query.filter_by(id=product_id).first()
+    product = Product.query.get(product_id)
     db.session.delete(product)
     db.session.commit()
     return redirect(url_for('product_page.product_list'))
@@ -41,7 +41,7 @@ def product_delete(product_id):
 
 @product_page.route('/products/modify/<int:product_id>', methods=['GET', 'POST'])
 def product_modify(product_id):
-    product = Product.query.filter_by(id=product_id).first()
+    product = Product.query.get(product_id)
     if request.method == 'GET':
         return render_template('products/modifyproduct.html', product=product)
     else:
