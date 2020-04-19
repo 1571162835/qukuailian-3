@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash ,session
 
 from ..extension import db
 from ..models import Product
@@ -10,13 +10,15 @@ product_page = Blueprint('product_page', __name__)
 @product_page.route('/products/list')
 def product_list():
     products = Product.query.all()
-    return render_template('products/product-list.html', products=products)
+    userName = session['userName']
+    return render_template('products/product-list.html', products=products,username = userName)
 
 
 @product_page.route('/products/add', methods=['GET', 'POST'])
 def product_add():
+    userName = session['userName']
     if request.method == 'GET':
-        return render_template('products/product-add.html')
+        return render_template('products/product-add.html',username=userName)
     else:
         name = request.form.get('name')
         number = request.form.get('number')
@@ -41,9 +43,10 @@ def product_delete(product_id):
 
 @product_page.route('/products/modify/<int:product_id>', methods=['GET', 'POST'])
 def product_modify(product_id):
+    userName = session['userName']
     product = Product.query.get(product_id)
     if request.method == 'GET':
-        return render_template('products/product-modify.html', product=product)
+        return render_template('products/product-modify.html', product=product,username=userName)
     else:
         name = request.form.get('name')
         number = request.form.get('number')

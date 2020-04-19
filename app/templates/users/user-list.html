@@ -88,7 +88,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="../../static/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">张猿猿</span>
+                        <span class="hidden-xs">{{username}}</span>
                     </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -96,17 +96,17 @@
                                     <img src="../../static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        张猿猿 - 数据管理员
+                                        {{username}}
                                         <small>最后登录 11:20AM</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                                        <a href="/user/detail/{{username}}" class="btn btn-default btn-flat">查看个人信息</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">注销</a>
+                                        <a href="/logout" class="btn btn-default btn-flat">注销</a>
                                     </div>
                                 </li>
                             </ul>
@@ -118,7 +118,7 @@
         </header>
         <!-- 页面头部 /-->
 
-		<!-- 导航侧栏 -->
+        <!-- 导航侧栏 -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
@@ -128,7 +128,7 @@
                         <img src="../../static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>张猿猿</p>
+                        <p>{{username}}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
                     </div>
                 </div>
@@ -184,10 +184,10 @@
 				用户管理 <small>全部用户</small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
+				<li><a href="/user/index"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user/findAll.do">用户管理</a></li>
+					href="#">用户管理</a></li>
 
 				<li class="active">全部用户</li>
 			</ol>
@@ -213,7 +213,7 @@
 										<button type="button" class="btn btn-default" title="新建" onclick="location.href='/users/addlist'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
-										
+
 										<button type="button" class="btn btn-default" title="刷新">
 											<i class="fa fa-refresh"></i> 刷新
 										</button>

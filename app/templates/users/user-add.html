@@ -91,7 +91,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="../../static/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">张猿猿</span>
+                        <span class="hidden-xs">{{username}}</span>
                     </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -99,17 +99,17 @@
                                     <img src="../../static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        张猿猿 - 数据管理员
+                                        {{username}}
                                         <small>最后登录 11:20AM</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                                        <a href="/user/detail/{{username}}" class="btn btn-default btn-flat">查看个人信息</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">注销</a>
+                                        <a href="/logout" class="btn btn-default btn-flat">注销</a>
                                     </div>
                                 </li>
                             </ul>
@@ -121,61 +121,61 @@
         </header>
         <!-- 页面头部 /-->
 
-		<!-- 导航侧栏 -->
-		<aside class="main-sidebar">
-			<!-- sidebar: style can be found in sidebar.less -->
-			<section class="sidebar">
-				<!-- Sidebar user panel -->
-				<div class="user-panel">
-					<div class="pull-left image">
-						<img src="../img/user2-160x160.jpg" class="img-circle" alt="User Image">
-					</div>
-					<div class="pull-left info">
-						<p>张猿猿</p>
-						<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
-					</div>
-				</div>
+        <!-- 导航侧栏 -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="../../static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>{{username}}</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                    </div>
+                </div>
 
-				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu">
-					<li class="header">菜单</li>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">菜单</li>
 
-					<li id="admin-index"><a href="main.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+                    <li id="admin-index"><a href="/users/index"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
 
-					<!-- 菜单 -->
+                    <!-- 菜单 -->
 
-					<li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
-						<span>产品数据</span> <span class="pull-right-container"> <i
-								class="fa fa-angle-left pull-right"></i>
+                    <li class="treeview"><a href="#"> <i class="fa fa-cube"></i>
+                        <span>产品数据</span> <span class="pull-right-container"> <i
+                                class="fa fa-angle-left pull-right"></i>
 				        </span>
-					</a>
-						<ul class="treeview-menu">
+                    </a>
+                        <ul class="treeview-menu">
 
-							<li id="system-setting"><a
-									href="/products/list">
-								<i class="fa fa-circle-o"></i> 产品列表
-							</a></li>
+                            <li id="system-setting"><a
+                                    href="/products/list">
+                                <i class="fa fa-circle-o"></i> 产品列表
+                            </a></li>
 
-						</ul></li>
+                        </ul></li>
 
-					<li class="treeview">
-						<a href="#"> <i class="fa fa-cogs"></i>
-							<span>用户管理</span> <span class="pull-right-container">
+                    <li class="treeview">
+                        <a href="#"> <i class="fa fa-cogs"></i>
+                            <span>用户管理</span> <span class="pull-right-container">
 					        <i class="fa fa-angle-left pull-right"></i>
 				            </span>
-						</a>
+                        </a>
 
-						<ul class="treeview-menu">
-							<li id="system-setting"><a
-									href="/findAll"> <i
-									class="fa fa-circle-o"></i> 用户列表
-							</a></li>
-						</ul></li>
-				</ul>
-			</section>
-			<!-- /.sidebar -->
-		</aside>
-		<!-- 导航侧栏 /-->
+                        <ul class="treeview-menu">
+                            <li id="system-setting"><a
+                                    href="/findAll"> <i
+                                    class="fa fa-circle-o"></i> 用户列表
+                            </a></li>
+                        </ul></li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- 导航侧栏 /-->
 
 		<!-- 内容区域 -->
 		<div class="content-wrapper">

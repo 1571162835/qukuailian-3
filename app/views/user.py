@@ -8,16 +8,19 @@ user_page = Blueprint('user_page', __name__)
 
 @user_page.route('/users/addlist')
 def addlist():
-    return render_template('/users/user-add.html')
+    userName = session['userName']
+    return render_template('/users/user-add.html',username=userName)
 
 
 @user_page.route('/users/index')
 def userlist():
-    return render_template('/users/main.html')
+    userName = session['userName']
+    return render_template('/users/main.html',username=userName)
 
 
 @user_page.route('/thisuser')
 def thisuser():
+    userName = session['userName']
     user = User.query.filter_by(id=session.get('user_id')).first()
     js = json.dumps(user, default=user2dict)
     return js
@@ -26,6 +29,7 @@ def thisuser():
 @user_page.route('/adduser', methods=['GET', 'POST'])
 def adduser():
     print('调用addUser')
+    userName = session['userName']
     username = request.form.get('username')
     password = request.form.get('password')
     role = request.form.get('role')
@@ -45,10 +49,13 @@ def login():
         pwd = request.form.get('password')
 
         user = User.query.filter(User.username == name).first()
+        print (user)
 
         if user and user.password == pwd:
             session['user_id'] = user.id
-            return render_template('users/main.html')
+            session['userName'] = user.username;
+            userName=session['userName']
+            return render_template('users/main.html',username=userName)
         else:
             flash('登陆失败')
             return render_template('users/login.html')
@@ -58,7 +65,8 @@ def login():
 def findAll():
     print('调用findAll')
     users = User.query.filter(User.role != 0)
-    return render_template('users/user-list.html', users=users)
+    userName = session['userName']
+    return render_template('users/user-list.html', users=users,username = userName)
     # print(users)
     # users = [user2dict(user) for user in users]
     # js = json.dumps(users)
@@ -68,6 +76,7 @@ def findAll():
 
 @user_page.route('/deleteUser')
 def deleteUser():
+    userName = session['userName']
     username = request.args.get('username')
     print(username)
     db.session.delete(User.query.filter_by(username=username).first())
@@ -77,9 +86,10 @@ def deleteUser():
 
 @user_page.route("/medituser/<id>", methods=['POST', 'GET'])
 def medituser(id):
+    userName = session['userName']
     user = User.query.get(id)
     if request.method == 'GET':
-        return render_template('/users/user-modify.html', user=user)
+        return render_template('/users/user-modify.html', user=user,username=userName)
     else:
         username = request.form.get("username")
         role = request.form.get("role")
@@ -91,7 +101,8 @@ def medituser(id):
 
 @user_page.route("/logout", methods=['POST', 'GET'])
 def logout():
-    return render_template('users/login.html')
+    userName = session['userName']
+    return render_template('users/login.html',username=userName)
 
 
 

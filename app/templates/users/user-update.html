@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 <head>
 <!-- 页面meta -->
@@ -177,59 +177,77 @@
         </aside>
         <!-- 导航侧栏 /-->
 
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
 
 			<!-- 内容头部 -->
 			<section class="content-header">
 			<h1>
-				产品管理 <small>产品表单</small>
+				用户管理 <small>用户表单</small>
 			</h1>
 			<ol class="breadcrumb">
-				<li><a href="../../static/index.jsp"><i
+				<li><a href="${pageContext.request.contextPath}/index.jsp"><i
 						class="fa fa-dashboard"></i> 首页</a></li>
 				<li><a
-					href="../../static/product/findAll.do">产品管理</a></li>
-				<li class="active">产品表单</li>
+					href="${pageContext.request.contextPath}/user/findAll">用户管理</a></li>
+				<li class="active">用户表单</li>
 			</ol>
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="/products/add"
-				method="post">
+			<form action="/user/modify/{{ user.id }}" method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
 
 				<div class="panel panel-default">
-					<div class="panel-heading">产品信息</div>
+					<div class="panel-heading">用户信息</div>
 					<div class="row data-type">
 
-
-						<div class="col-md-2 title">产品名称</div>
+						<div class="col-md-2 title">用户名称</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="name" id="name"
-								placeholder="产品名称" value="">
+							<input type="text" class="form-control" name="username" id="username"
+								placeholder="用户名称" value="{{user.username}}">
 						</div>
-						<div class="col-md-2 title">产品数量</div>
+						<div class="col-md-2 title">用户密码</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" name="number" id="number"
-								placeholder="产品名称" value="">
+							<input type="password" class="form-control" name="password" id="password"
+								placeholder="用户密码" value="{{user.password}}">
 						</div>
-
-
-						<div class="col-md-2 title">终点</div>
+						<div class="col-md-2 title">用户角色</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="产品终点" id="dest"
-								name="dest" value="">
+							<select class="form-control select2" style="width: 100%" id="role"
+								name="role">
+							 {% if 1 == user.role %}
+								  <option value ="1" selected="selected">生产商</option>
+								  <option value ="2">承运商</option>
+								  <option value="3">经销商</option>
+							  {% elif 2 == user.role %}
+								  <option value ="1">生产商</option>
+								  <option value ="2" selected="selected">承运商</option>
+								  <option value="3">经销商</option>
+							  {% else %}
+								  <option value ="1">生产商</option>
+								  <option value ="2">承运商</option>
+								  <option value="3" selected="selected">经销商</option>
+							  {% endif %}
+							</select>
 						</div>
 
-						<div class="col-md-2 title">产品描述</div>
+						<div class="col-md-2 title">电话号码</div>
 						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="产品描述" id="desc"
-								name="desc" value="">
+							<input type="text" class="form-control" name="tel" id="tel"
+								placeholder="电话号码" value="{{user.tel}}">
 						</div>
-
+						<div class="col-md-2 title">真实姓名</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="real_name" id="real_name"
+								placeholder="真实姓名" value="{{user.real_name}}">
+						</div>
+						<div class="col-md-2 title">电子邮件</div>
+						<div class="col-md-4 data">
+							<input type="text" class="form-control" name="email" id="email"
+								placeholder="电子邮件" value="{{user.email}}">
+						</div>
 
 					</div>
 				</div>
@@ -337,30 +355,32 @@
 		src="../../static/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 	<script>
-		 $(function(){
+
+	$(function(){
         $("#submit").click(function(){
             $.ajax({
-                url: "/products/add",
+                url: "#",
                 method: "POST",
                 data: {
-                    'name': $("#name").val(),
-                    'number': $("#number").val(),
-                    'dest': $("#dest").val(),
-                    'desc': $("#desc").val()
+                	'username': $("#username").val(),
+                	'role': $("#role").val(),
+                    'password': $("#password").val(),
+                    'tel': $("#tel").val(),
+                    'real_name': $("#real_name").val(),
+                    'email': $("#email").val()
                 },
                 success: function(response){
                     if('0' == response){
-                        alert('添加失败！！！');
+                        alert('修改失败！！！');
                     }
-                    if('1' == response){
-                    	alert("添加成功");
-                       window.location.href="/products/list";
+                    else{
+                        alert('修改成功！！！');
+                        window.location.href="/user/detail/" + response;
                     }
                 }
             });
         });
     });
-
 		$(document).ready(function() {
 			// 选择框
 			$(".select2").select2();
@@ -379,25 +399,6 @@
 				liObj.addClass("active");
 			}
 		}
-
-		$(document).ready(function() {
-			$('#datepicker-a3').datetimepicker({
-				format : "yyyy-mm-dd hh:ii",
-				autoclose : true,
-				todayBtn : true,
-				language : "zh-CN"
-			});
-		});
-
-		$(document).ready(function() {
-			// 激活导航位置
-			setSidebarActive("order-manage");
-			$("#datepicker-a3").datetimepicker({
-				format : "yyyy-mm-dd hh:ii",
-
-			});
-
-		});
 	</script>
 
 
