@@ -155,7 +155,7 @@
 
                         </ul></li>
 
-                    <li class="treeview">
+                    <li v-if="manager" id="menu" class="treeview">
                         <a href="#"> <i class="fa fa-cogs"></i>
                             <span>用户管理</span> <span class="pull-right-container">
 					        <i class="fa fa-angle-left pull-right"></i>
@@ -167,7 +167,8 @@
                                     href="/findAll"> <i
                                     class="fa fa-circle-o"></i> 用户列表
                             </a></li>
-                        </ul></li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -351,6 +352,37 @@
 		<script src="../../static/plugins/flot/jquery.flot.categories.min.js"></script>
 		<script src="../../static/plugins/ionslider/ion.rangeSlider.min.js"></script>
 		<script src="../../static/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+	<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<script>
+         $(function(){
+			$.ajax({
+				url:'http://127.0.0.1:5000/thisuser',
+				dataType:'json',
+				method:'GET',
+				success:function(user){
+				    console.log(user);
+				    if (user.role==0){
+				        new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : true,
+                            }
+                        });
+				    }else{
+				    	new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : false,
+                            }
+                        });
+				    }
+				},
+				error:function(){
+					alert('失败');
+				}
+			});
+		});
+    </script>
 		<script>
 			$(document).ready(function() {
 				// 选择框

@@ -158,7 +158,7 @@
 
                         </ul></li>
 
-                    <li class="treeview">
+                    <li v-if="manager" id="menu" class="treeview">
                         <a href="#"> <i class="fa fa-cogs"></i>
                             <span>用户管理</span> <span class="pull-right-container">
 					        <i class="fa fa-angle-left pull-right"></i>
@@ -170,7 +170,8 @@
                                     href="/findAll"> <i
                                     class="fa fa-circle-o"></i> 用户列表
                             </a></li>
-                        </ul></li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -335,26 +336,37 @@
 	<script
 		src="../../static/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
+	<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : 'zh-CN'
+         $(function(){
+			$.ajax({
+				url:'http://127.0.0.1:5000/thisuser',
+				dataType:'json',
+				method:'GET',
+				success:function(user){
+				    console.log(user);
+				    if (user.role==0){
+				        new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : true,
+                            }
+                        });
+				    }else{
+				    	new Vue({
+                            el: '#menu',
+                            data: {
+                                manager : false,
+                            }
+                        });
+				    }
+				},
+				error:function(){
+					alert('失败');
+				}
 			});
 		});
-
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
-	</script>
+    </script>
 
 
 </body>
