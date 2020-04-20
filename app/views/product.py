@@ -7,17 +7,17 @@ from ..models import User, Product
 product_page = Blueprint('product_page', __name__)
 
 
-@product_page.route('/products/list')
-def product_list():
+@product_page.route('/products/list/<int:page>')
+def product_list(page):
     userName = session['userName']
     user = User.query.filter_by(username=userName).first()
     if user.role in [0, 1]:
-        products = Product.query.all()
+        pagination = Product.query.filter().paginate(page=page, per_page=2, error_out=False)
     elif user.role == 2:
-        products = Product.query.filter_by(status=1)
+        pagination = Product.query.filter_by(status=1).paginate(page=page, per_page=2, error_out=False)
     else:
-        products = Product.query.filter_by(status=2)
-    return render_template('products/product-list.html', products=products, username=userName, user_role=user.role)
+        pagination = Product.query.filter_by(status=2).paginate(page=page, per_page=2, error_out=False)
+    return render_template('products/product-list.html', products=pagination.items, username=userName, user_role=user.role,pagination=pagination)
 
 
 @product_page.route('/products/add', methods=['GET', 'POST'])
@@ -45,6 +45,13 @@ def product_delete(product_id):
     db.session.delete(product)
     db.session.commit()
     return redirect(url_for('product_page.product_list'))
+
+
+@product_page.route('/findProductByName/<int:page>',methods=['POST'])
+def findUserByUsername(page):
+    name = request.form.get('name')
+    pagination = Product.query.filter_by(name=name).paginate(page=page, per_page=2, error_out=False)
+    return render_template('products/product-list.html', products=pagination.items,username = session['userName'],pagination=pagination)
 
 
 @product_page.route('/products/modify/<int:product_id>', methods=['GET', 'POST'])

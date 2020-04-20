@@ -61,12 +61,12 @@ def login():
             return render_template('users/login.html')
 
 
-@user_page.route('/findAll', methods=['POST', 'GET'])
-def findAll():
+@user_page.route('/findAll/<int:page>', methods=['POST', 'GET'])
+def findAll(page):
     print('调用findAll')
-    users = User.query.filter(User.role != 0)
+    pagination = User.query.filter(User.role != 0).paginate(page=page, per_page=2, error_out=False)
     userName = session['userName']
-    return render_template('users/user-list.html', users=users,username = userName)
+    return render_template('users/user-list.html', users=pagination.items,username = userName,pagination = pagination)
     # print(users)
     # users = [user2dict(user) for user in users]
     # js = json.dumps(users)
@@ -74,9 +74,16 @@ def findAll():
     # return js
 
 
+@user_page.route('/findUserByUsername/<int:page>',methods=['POST'])
+def findUserByUsername(page):
+    username = request.form.get('username')
+    print(username)
+    pagination = User.query.filter_by(username=username).paginate(page=page, per_page=2, error_out=False)
+    return render_template('users/user-list.html', users=pagination.items,username = session['userName'],pagination=pagination)
+
+
 @user_page.route('/deleteUser')
 def deleteUser():
-    userName = session['userName']
     username = request.args.get('username')
     print(username)
     db.session.delete(User.query.filter_by(username=username).first())
@@ -93,10 +100,13 @@ def medituser(id):
     else:
         username = request.form.get("username")
         role = request.form.get("role")
+        password = request.form.get("password")
         user.username = username
         user.role = role
+        user.password = password
         db.session.commit()
         return redirect(url_for('user_page.findAll'))
+
 
 
 @user_page.route("/logout", methods=['POST', 'GET'])

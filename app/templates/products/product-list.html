@@ -159,7 +159,7 @@
                         <ul class="treeview-menu">
 
                             <li id="system-setting"><a
-                                    href="/products/list">
+                                    href="/products/list/1">
                                 <i class="fa fa-circle-o"></i> 产品列表
                             </a></li>
 
@@ -174,7 +174,7 @@
 
                         <ul class="treeview-menu">
                             <li id="system-setting"><a
-                                    href="/findAll"> <i
+                                    href="/findAll/1"> <i
                                     class="fa fa-circle-o"></i> 用户列表
                             </a></li>
                         </ul>
@@ -233,10 +233,13 @@
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+									<form action="/findProductByName/1" method="post">
+										<input type="text" class="form-control input-sm" name="name"
+											placeholder="商品名称">
+										<span class="form-control-feedback" style="pointer-events:visible" ><input style="padding-bottom: 1px;border-top-width: 4px;border-bottom-width: 5px;" class="btn bg-olive btn-xs pull-right" type="submit" value="搜索"></span>
+									</form>
 								</div>
+
 							</div>
 							<!--工具栏/-->
 
@@ -277,11 +280,11 @@
 										<td class="text-center">
 												{% if user_role in [0, 1] %}
 													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">编辑</a>
-													<a href="/products/delete/{{ product.id }}" class="btn bg-olive btn-xs">删除</a>
+													<a href="/products/delete/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认删除？')">删除</a>
 												{% elif user_role == 2 %}
-													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">运输它</a>
+													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认运输？')">运输它</a>
 												{% elif user_role == 3 %}
-													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">接收它</a>
+													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认接收？')">接收它</a>
 												{% endif %}
 										</td>
 									</tr>
@@ -312,32 +315,18 @@
 					<div class="box-footer">
 						<div class="pull-left">
 							<div class="form-group form-inline">
-								总共1 页，共2 条数据。 每页 <select class="form-control">
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-								</select> 条
+								总共{{pagination.pages}} 页，共{{pagination.total}} 条数据。
 							</div>
 						</div>
 
-						<div class="box-tools pull-right">
-							<ul class="pagination">
-								<li><a href="#" aria-label="Previous">首页</a></li>
-								<li><a href="#">上一页</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-								<li><a href="#" aria-label="Next">尾页</a></li>
-							</ul>
-						</div>
+						<!--分页-->
+						{% import 'users/pages.html' as pg %}
+						{{pg.my_paginate(pagination,'product_page.product_list')}}
+						<!--分页-->
 
 					</div>
 					<!-- /.box-footer-->
+
 
 
 
