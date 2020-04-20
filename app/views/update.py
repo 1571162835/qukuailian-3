@@ -11,7 +11,7 @@ itself_page = Blueprint('itself_page', __name__)
 def user_itself(username):
     user = User.query.filter(User.username == username).first()
     userName = session['userName']
-    return render_template('users/user-detail.html', user=user,userName=userName)
+    return render_template('users/user-detail.html', user=user, username=userName)
 
 
 @itself_page.route('/user/modify/<int:user_id>', methods=['GET', 'POST'])
@@ -19,7 +19,7 @@ def user_modify(user_id):
     userName = session['userName']
     user = User.query.get(user_id)
     if request.method == 'GET':
-        return render_template('users/user-update.html', user=user,username=userName)
+        return render_template('users/user-update.html', user=user, username=userName)
     else:
         username = request.form.get('username')
         password = request.form.get('password')

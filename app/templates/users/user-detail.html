@@ -255,7 +255,9 @@
 										<td>{{user.id}}</td>
 										<td>{{user.username}}</td>
 										<td >
-											{% if 1 == user.role %}
+											{% if 0 == user.role %}
+											  超级管理员
+											{% elif 1 == user.role %}
 											  生厂商
 											{% elif 2 == user.role %}
 												承运商

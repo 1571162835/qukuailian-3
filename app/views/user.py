@@ -57,7 +57,7 @@ def login():
             userName=session['userName']
             return render_template('users/main.html',username=userName)
         else:
-            flash('登陆失败')
+            flash('登录失败')
             return render_template('users/login.html')
 
 

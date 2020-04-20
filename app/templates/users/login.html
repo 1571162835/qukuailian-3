@@ -6,9 +6,6 @@
     <link  rel = "stylesheet" href = "../../static/css/flogin.css"  />
 </head>
 <body style = "background:#353f42">
-{% for message in get_flashed_messages() %}
-{{ message }}
-{% endfor %}
 <div class="main">
     <div class="title">
         <span>用户登录</span>
@@ -34,7 +31,9 @@
             <button type="submit" class="enter-btn" >登录</button>
         </div>
     </form>
-
+    {% for message in get_flashed_messages() %}
+    <span style="color:red; margin:145px;">{{ message }}</span>
+    {% endfor %}
 </div>
 <script src="assets/js/jquery-1.8.2.min.js"></script>
 <script src="assets/js/supersized.3.2.7.min.js"></script>

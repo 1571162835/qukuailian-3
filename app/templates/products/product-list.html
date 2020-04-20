@@ -275,8 +275,14 @@
 										{% endif %}
 										<td>{{ product.desc }}</td>
 										<td class="text-center">
-												<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">编辑</a>
-												<a href="/products/delete/{{ product.id }}" class="btn bg-olive btn-xs">删除</a>
+												{% if user_role in [0, 1] %}
+													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">编辑</a>
+													<a href="/products/delete/{{ product.id }}" class="btn bg-olive btn-xs">删除</a>
+												{% elif user_role == 2 %}
+													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">运输它</a>
+												{% elif user_role == 3 %}
+													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">接收它</a>
+												{% endif %}
 										</td>
 									</tr>
 								{% endfor %}
