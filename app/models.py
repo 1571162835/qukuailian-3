@@ -50,3 +50,27 @@ class Product(db.Model):
 
     def __repr__(self):
         return '<Product %r: %r>' % (self.id, self.name)
+
+
+class Block(db.Model):
+    __tablename__ = "blocks"
+
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, unique=False, nullable=False)
+    product_status = db.Column(db.Integer, unique=False, nullable=False)
+    username = db.Column(db.String(80), unique=False, nullable=False)
+    datetime = db.Column(db.String(100), unique=False, nullable=False)
+    nonce = db.Column(db.Integer, unique=False, nullable=False)
+    previous_hash = db.Column(db.String(256), unique=False, nullable=False)
+    cur_hash = db.Column(db.String(256), unique=True, nullable=False)
+
+    def __init__(self, product_id, username, datetime, nonce, previous_hash, cur_hash):
+        self.product_id = product_id
+        self.username = username
+        self.datetime = datetime
+        self.nonce = nonce
+        self.previous_hash = previous_hash
+        self.cur_hash = cur_hash
+
+    def __repr__(self):
+        return '<Block %r>' % self.id
