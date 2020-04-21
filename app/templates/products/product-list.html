@@ -220,10 +220,12 @@
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
+										{% if user_role ==1 %}
 										<button type="button" class="btn btn-default" title="新建"
 											onclick="location.href='/products/add'">
 											<i class="fa fa-file-o"></i> 新增
 										</button>
+										{% endif %}
 										<button type="button" class="btn btn-default" title="刷新"
 											onclick="location.href='/products/list">
 											<i class="fa fa-refresh"></i> 刷新
@@ -257,6 +259,7 @@
 										<th class="sorting">终点</th>
 										<th class="text-center sorting">状态</th>
 										<th class="sorting">产品描述</th>
+										<th class="sorting">产品详情</th>
 										<th class="text-center">操作</th>
 									</tr>
 								</thead>
@@ -277,13 +280,14 @@
 											<td>已到达</td>
 										{% endif %}
 										<td>{{ product.desc }}</td>
+										<td><a href="#" >详情</a> </td>
 										<td class="text-center">
 												{% if user_role in [0, 1] %}
 													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs">编辑</a>
 													<a href="/products/delete/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认删除？')">删除</a>
-												{% elif user_role == 2 %}
+												{% elif user_role == 2 and product.status == 1%}
 													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认运输？')">运输它</a>
-												{% elif user_role == 3 %}
+												{% elif user_role == 3 and product.status == 2%}
 													<a href="/products/modify/{{ product.id }}" class="btn bg-olive btn-xs" onclick="return confirm('确认接收？')">接收它</a>
 												{% endif %}
 										</td>
@@ -459,6 +463,8 @@
 				}
 			});
 		});
+
+
     </script>
 	<script>
 		$(document).ready(function() {

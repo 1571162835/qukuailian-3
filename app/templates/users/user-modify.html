@@ -229,10 +229,14 @@
 							  {% endif %}
 							</select>
 						</div>
-
+						<div class="col-md-2 title">用户密码</div>
+						<div class="col-md-4 data">
+							<input type="password" class="form-control" name="password"
+								placeholder="用户密码" value="{{user.password}}">
+						</div>
 					</div>
 				</div>
-				<!--订单信息/--> <!--工具栏-->
+				<!--工具栏-->
 				<div class="box-tools text-center">
 					<button type="submit" class="btn bg-maroon" onclick="return confirm('确定更改？')" value="更改"/>修改</button>
 					<button type="button" class="btn bg-default"

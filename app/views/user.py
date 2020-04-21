@@ -36,7 +36,7 @@ def adduser():
     realname = request.form.get('real_name')
     db.session.add(User(username,password,role,realname))
     db.session.commit()
-    return redirect(url_for('user_page.findAll'))
+    return redirect(url_for('user_page.findAll',page=1))
 
 
 @user_page.route('/')
@@ -88,7 +88,7 @@ def deleteUser():
     print(username)
     db.session.delete(User.query.filter_by(username=username).first())
     db.session.commit()
-    return redirect(url_for('user_page.findAll'))
+    return redirect(url_for('user_page.findAll',page=1))
 
 
 @user_page.route("/medituser/<id>", methods=['POST', 'GET'])
@@ -105,7 +105,7 @@ def medituser(id):
         user.role = role
         user.password = password
         db.session.commit()
-        return redirect(url_for('user_page.findAll'))
+        return redirect(url_for('user_page.findAll',page=1))
 
 
 

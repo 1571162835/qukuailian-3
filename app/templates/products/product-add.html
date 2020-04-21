@@ -197,8 +197,7 @@
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="/products/add"
-				method="post">
+			<form>
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
 
@@ -215,7 +214,7 @@
 						<div class="col-md-2 title">产品数量</div>
 						<div class="col-md-4 data">
 							<input type="text" class="form-control" name="number" id="number"
-								placeholder="产品名称" value="">
+								placeholder="产品数量" value="">
 						</div>
 
 
@@ -236,7 +235,7 @@
 				</div>
 				<!--订单信息/--> <!--工具栏-->
 				<div class="box-tools text-center">
-					<button type="button" class="btn bg-maroon" id="submit">保存</button>
+					<input type="button" class="btn bg-maroon" id="submit" value="保存">
 					<button type="button" class="btn bg-default"
 						onclick="history.back(-1);">返回</button>
 				</div>
@@ -386,7 +385,7 @@
                     }
                     if('1' == response){
                     	alert("添加成功");
-                       window.location.href="/products/list";
+						window.location.href = "/products/list/1";
                     }
                 }
             });
