@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, session
 
 from ..extension import db
 from ..models import User
+from werkzeug.security import generate_password_hash
 
 
 itself_page = Blueprint('itself_page', __name__)
@@ -28,8 +29,9 @@ def user_modify(user_id):
         real_name = request.form.get('real_name')
         email = request.form.get('email')
         if password and tel and real_name and email:
-            user.username, user.password,user.role, user.tel, user.real_name, user.email = username,password,role, tel, real_name, email
+            user.username, user.password, user.role, user.tel, user.real_name, user.email = username, generate_password_hash(password), role, tel, real_name, email
             db.session.commit()
-            return str(user_id)
+            session['userName'] = user.username
+            return str(user.username)
         else:
             return '0'

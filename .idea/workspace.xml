@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb6f2ba2-cfce-49b2-b7fe-c3f1629b96e6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/qukuailian-3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/qukuailian-3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/products/product-add.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/products/product-add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/products/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/products/product-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/users/user-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/users/user-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/users/user-modify.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/users/user-modify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/users/user-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/users/user-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/update.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/update.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

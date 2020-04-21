@@ -211,9 +211,9 @@
 						</div>
 						<div class="col-md-2 title">用户密码</div>
 						<div class="col-md-4 data">
-							<input type="password" class="form-control" name="password" id="password"
-								placeholder="用户密码" value="{{user.password}}">
+							<input type="password" class="form-control" name="password" id="password">
 						</div>
+						{% if user.role != 0 %}
 						<div class="col-md-2 title">用户角色</div>
 						<div class="col-md-4 data">
 							<select class="form-control select2" style="width: 100%;" id="role"
@@ -227,6 +227,7 @@
 							  {% endif %}
 							</select>
 						</div>
+						{% endif %}
 
 						<div class="col-md-2 title">电话号码</div>
 						<div class="col-md-4 data">
